@@ -1,48 +1,23 @@
-# Inlämning 2 - Hantera en lista med användare
-
-
-# Hjälpfunktion: Läs in namn och e-post, returneras som en tuple
+# Returnerar namn och e-post som tuple
 def read_name_and_email():
-    # Namnet får inte vara tomt
     name = input("Ange namn: ").strip()
-    while name == "":
-        print("Namnet får inte vara tomt.")
-        name = input("Ange namn: ").strip()
-
-    # E-post sparas med små bokstäver så att Anna@Example.com och
-    # anna@example.com räknas som samma adress
     email = input("Ange e-post: ").strip().lower()
-    while not is_valid_email(email):
-        print("Ogiltig e-postadress. Den måste innehålla @ och en punkt efter @.")
-        email = input("Ange e-post: ").strip().lower()
-
-    return name, email  # Returneras som en tuple
+    return name, email
 
 
-# Hjälpfunktion: Enkel kontroll av att e-postadressen ser rimlig ut
-def is_valid_email(email):
-    if email.count("@") != 1 or " " in email:
-        return False
-    local, domain = email.split("@")  # split ger två delar som packas upp
-    return local != "" and "." in domain and not domain.startswith(".") and not domain.endswith(".")
-
-
-# Hjälpfunktion: Läs in en ålder och se till att det är ett giltigt heltal
+# Frågar tills åldern är giltig
 def read_age():
     while True:
-        text = input("Ange ålder: ").strip()
         try:
-            age = int(text)
+            age = int(input("Ange ålder: "))
+            if age >= 0:
+                return age
+            print("Åldern kan inte vara negativ.")
         except ValueError:
             print("Fel: åldern måste vara ett heltal, t.ex. 17.")
-            continue
-        if 0 <= age <= 130:
-            return age
-        print("Fel: åldern måste vara mellan 0 och 130.")
 
 
-# Hjälpfunktion: Linjär sökning efter en användare med en viss e-post.
-# Returnerar användarens index i listan, eller -1 om den inte finns.
+# Linjär sökning, -1 om saknas
 def find_index_by_email(users, email):
     for i in range(len(users)):
         if users[i]["email"] == email:
@@ -50,84 +25,56 @@ def find_index_by_email(users, email):
     return -1
 
 
-# Hjälpfunktion: Skriv ut en användare på ett snyggt sätt
-def print_user(user):
-    print(f"  {user['name']:<20} {user['age']:>4} år   {user['email']}")
-
-
-# Funktion: Lägg till en användare
 def add_user(users):
     name, email = read_name_and_email()  # Packar upp tuplen
 
-    # Kontrollera att e-postadressen inte redan finns
+    # Stoppa dubbletter
     if find_index_by_email(users, email) != -1:
-        print(f"Fel: e-postadressen {email} finns redan. Användaren sparades inte.")
+        print("Fel: e-postadressen finns redan. Användaren sparades inte.")
         return
 
     age = read_age()
-
-    user = {"name": name, "age": age, "email": email}
-    users.append(user)
+    users.append({"name": name, "age": age, "email": email})
     print(f"Användaren {name} har lagts till.")
 
 
-# Funktion: Sök efter en användare via namn eller e-post
 def search_user(users):
-    if not users:
-        print("Det finns inga användare att söka bland.")
-        return
-
     term = input("Sök på namn eller e-post: ").strip().lower()
-    if term == "":
-        print("Du måste skriva ett sökord.")
-        return
 
-    # Linjär sökning: gå igenom alla användare och spara de som matchar.
-    # Sökningen matchar även delar av namnet, t.ex. "ann" hittar "Anna".
-    results = []
+    found = False
     for user in users:
+        # Matcha del av namn eller exakt e-post
         if term in user["name"].lower() or term == user["email"]:
-            results.append(user)
+            print(f"{user['name']}, {user['age']} år, {user['email']}")
+            found = True
 
-    if results:
-        print(f"Hittade {len(results)} användare:")
-        for user in results:
-            print_user(user)
-    else:
-        print("Ingen användare matchade sökningen.")
+    if not found:
+        print("Ingen användare hittades.")
 
 
-# Funktion: Visa alla användare sorterade alfabetiskt efter namn
 def show_users(users):
     if not users:
         print("Listan är tom.")
         return
 
-    # sorted() skapar en ny sorterad lista, originallistan ändras inte.
-    # key=lower gör att sorteringen inte bryr sig om stora/små bokstäver.
-    sorted_users = sorted(users, key=lambda user: user["name"].lower())
-
-    print(f"Alla användare ({len(users)} st), sorterade efter namn:")
-    for user in sorted_users:
-        print_user(user)
+    # Sortera efter namn
+    for user in sorted(users, key=lambda user: user["name"].lower()):
+        print(f"{user['name']}, {user['age']} år, {user['email']}")
 
 
-# Funktion: Ta bort en användare via e-postadress
 def remove_user(users):
     email = input("Ange e-post för användaren som ska tas bort: ").strip().lower()
     index = find_index_by_email(users, email)
 
     if index == -1:
-        print(f"Det finns ingen användare med e-postadressen {email}.")
-        return
+        print("Det finns ingen användare med den e-postadressen.")
+    else:
+        removed = users.pop(index)
+        print(f"Användaren {removed['name']} har tagits bort.")
 
-    removed = users.pop(index)
-    print(f"Användaren {removed['name']} ({removed['email']}) har tagits bort.")
 
-
-# Huvudfunktion: Sköter meny och programflöde
 def main():
-    users = []  # Här lagras användarna som dictionaries
+    users = []  # Lista med dictionaries
 
     while True:
         print("\n1. Lägg till användare")
@@ -152,6 +99,4 @@ def main():
             print("Ogiltigt val, försök igen.")
 
 
-# Starta programmet bara när filen körs direkt
-if __name__ == "__main__":
-    main()
+main()
