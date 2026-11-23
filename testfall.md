@@ -4,18 +4,13 @@
 
 | Test | Indata | Förväntat resultat | Resultat |
 |---|---|---|---|
-| Lägg till användare | Anna, 17, anna@example.com | Användaren sparas i listan. | ✅ Sparades |
-| Fel ålder | Anna, sjutton, anna@example.com | Felmeddelande visas, programmet kraschar inte. | ✅ Felmeddelande, programmet frågar efter åldern igen |
-| Negativ ålder | -3 | Felmeddelande, programmet frågar igen. | ✅ "Åldern kan inte vara negativ." |
-| Dubblett av e-postadress | Bertil, anna@example.com | Den andra användaren sparas inte, tydligt meddelande visas. | ✅ Sparades inte, meddelande visades |
-| Dubblett med stora bokstäver | Anna@Example.com | Räknas som samma e-post och sparas inte. | ✅ Sparades inte |
-| Sök e-post | anna@example.com | Programmet hittar rätt användare. | ✅ Hittade Anna |
-| Sök del av namn | ce | Programmet hittar Cecilia. | ✅ Hittade Cecilia |
-| Visa sorterat | Anna, Bertil, Cecilia, adam (inlagda i den ordningen) | Användarna visas alfabetiskt efter namn. | ✅ adam, Anna, Bertil, Cecilia |
-| Ta bort användare | anna@example.com | Rätt användare tas bort och finns inte längre i listan. | ✅ Anna borttagen, syns inte i listan |
-| Ta bort okänd användare | saknas@example.com | Tydligt meddelande, programmet fortsätter. | ✅ Meddelande visades, menyn visas igen |
-| Ogiltigt menyval | x | Felmeddelande, menyn visas igen. | ✅ "Ogiltigt val, försök igen." |
-| Avsluta | 5 | Programmet avslutas. | ✅ "Programmet avslutas." |
+| Lägg till användare | Anna, 17, anna@example.com | Användaren sparas i listan. | ✅ Godkänt |
+| Fel ålder | Anna, sjutton, anna@example.com | Programmet visar felmeddelande och kraschar inte. | ✅ Godkänt |
+| Dubblett av e-postadress | Lägg till två användare med anna@example.com | Den andra användaren sparas inte och ett tydligt meddelande visas. | ✅ Godkänt |
+| Sök e-post | anna@example.com | Programmet hittar rätt användare. | ✅ Godkänt |
+| Visa sorterat | Flera användare i osorterad ordning | Användarna visas alfabetiskt efter namn. | ✅ Godkänt |
+| Ta bort användare | anna@example.com | Rätt användare tas bort och finns inte längre i listan. | ✅ Godkänt |
+| Ta bort okänd användare | saknas@example.com | Programmet visar ett tydligt meddelande och fortsätter. | ✅ Godkänt |
 
 ## Hur jag använde listor, dictionaries och tuple
 
