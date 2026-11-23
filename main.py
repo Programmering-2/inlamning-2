@@ -25,6 +25,7 @@ def find_index_by_email(users, email):
     return -1
 
 
+# Lägger till en ny användare
 def add_user(users):
     name, email = read_name_and_email()  # Packar upp tuplen
 
@@ -38,6 +39,7 @@ def add_user(users):
     print(f"Användaren {name} har lagts till.")
 
 
+# Söker på namn eller e-post
 def search_user(users):
     term = input("Sök på namn eller e-post: ").strip().lower()
 
@@ -52,6 +54,7 @@ def search_user(users):
         print("Ingen användare hittades.")
 
 
+# Visar alla användare i bokstavsordning
 def show_users(users):
     if not users:
         print("Listan är tom.")
@@ -62,6 +65,7 @@ def show_users(users):
         print(f"{user['name']}, {user['age']} år, {user['email']}")
 
 
+# Tar bort användare via e-post
 def remove_user(users):
     email = input("Ange e-post för användaren som ska tas bort: ").strip().lower()
     index = find_index_by_email(users, email)
@@ -73,6 +77,7 @@ def remove_user(users):
         print(f"Användaren {removed['name']} har tagits bort.")
 
 
+# Meny och programflöde
 def main():
     users = []  # Lista med dictionaries
 
