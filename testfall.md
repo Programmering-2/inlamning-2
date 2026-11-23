@@ -6,6 +6,7 @@
 |---|---|---|---|
 | Lägg till användare | Anna, 17, anna@example.com | Användaren sparas i listan. | ✅ Sparades |
 | Fel ålder | Anna, sjutton, anna@example.com | Felmeddelande visas, programmet kraschar inte. | ✅ Felmeddelande, programmet frågar efter åldern igen |
+| Negativ ålder | -3 | Felmeddelande, programmet frågar igen. | ✅ "Åldern kan inte vara negativ." |
 | Dubblett av e-postadress | Bertil, anna@example.com | Den andra användaren sparas inte, tydligt meddelande visas. | ✅ Sparades inte, meddelande visades |
 | Dubblett med stora bokstäver | Anna@Example.com | Räknas som samma e-post och sparas inte. | ✅ Sparades inte |
 | Sök e-post | anna@example.com | Programmet hittar rätt användare. | ✅ Hittade Anna |
