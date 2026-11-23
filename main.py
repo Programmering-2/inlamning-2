@@ -1,4 +1,4 @@
-# Returnerar namn och e-post som tuple
+# Returnerar namn och e-post (tuple)
 def read_name_and_email():
     name = input("Ange namn: ").strip()
     email = input("Ange e-post: ").strip().lower()
@@ -17,7 +17,7 @@ def read_age():
             print("Fel: åldern måste vara ett heltal, t.ex. 17.")
 
 
-# Linjär sökning, -1 om saknas
+# Linjär sökning, blir -1 om det saknas
 def find_index_by_email(users, email):
     for i in range(len(users)):
         if users[i]["email"] == email:
@@ -29,7 +29,7 @@ def find_index_by_email(users, email):
 def add_user(users):
     name, email = read_name_and_email()  # Packar upp tuplen
 
-    # Stoppa dubbletter
+    # Förhindrar dubbletter
     if find_index_by_email(users, email) != -1:
         print("Fel: e-postadressen finns redan. Användaren sparades inte.")
         return
@@ -77,7 +77,7 @@ def remove_user(users):
         print(f"Användaren {removed['name']} har tagits bort.")
 
 
-# Meny och programflöde
+# Meny
 def main():
     users = []  # Lista med dictionaries
 
